@@ -1,0 +1,28 @@
+#navbar-logo-home{
+    font-size: 40px;
+    font-family: 'Faster One', cursive;
+    margin-left: 40px;
+}
+.first-div{
+    height: 80vh;
+    color: white;
+    background:linear-gradient( rgba(0,0,0,0.4),rgba(0,0,0,0.4) ),url(../images/bgimage2.jpg);
+    /* background:url(../images/bgimage2.jpg); */
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+}
+
+.intotxt{
+    padding-top: 35vh;
+}
+.h2awards{
+    color: #ffffff;
+    font-size: 60px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.pdescribe{
+    color: white;
+    font-size: 23px;
+}

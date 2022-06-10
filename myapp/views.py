@@ -24,4 +24,20 @@ def register(request):
     }
     return render(request,"users/register.html",context)
                     
+
+def Index_view(request):
+    '''
+    View for the homepage
+    '''
+    title = "home"
+    projects = Project.objects.all().order_by('-pk')
+    context = {
+        "title":title,
+        "projects":projects,
+    }
+    
+    return render(request,"index.html",context)   
      
+     
+     
+    
