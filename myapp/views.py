@@ -38,6 +38,26 @@ def Index_view(request):
     
     return render(request,"index.html",context)   
      
-     
+
+#@login_required
+def Upload_Project(request):
+    '''
+    This is the function based view for uploading a project to the site
+    '''
+    current_user = request.user
+    if request.method == "POST":
+        form = ProjectUploadForm(request.POST,request.FILES)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.user = current_user
+            project.save()
+            return redirect(Index_view)
+    else:
+        form = ProjectUploadForm()
+    context = {
+        "form":form
+    }
+
+    return render(request,"project/project_upload.html",context)  
      
     
