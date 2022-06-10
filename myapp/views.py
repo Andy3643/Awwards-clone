@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from forms import *
+from .forms import *
 from django.contrib import messages
 #from django.contrib.auth.decorators import login_required
 
@@ -17,11 +17,11 @@ def register(request):
             username = form.cleaned_data.get('username')
             messages.success(request,f"You have succesfully created an account. Proceed to Login")
             return redirect('login')
-        else:
-            form = UserRegisterForm()
-            context = {
-                'form':form
-            }
-            return render(request,"users/register.html",context)
+    else:
+        form = UserRegisterForm()
+    context = {
+        'form':form
+    }
+    return render(request,"users/register.html",context)
                     
      
