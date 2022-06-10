@@ -42,7 +42,7 @@ def Index_view(request):
 #@login_required
 def Upload_Project(request):
     '''
-    This is the function based view for uploading a project to the site
+    function to upload project for display
     '''
     current_user = request.user
     if request.method == "POST":
