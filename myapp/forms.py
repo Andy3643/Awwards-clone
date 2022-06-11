@@ -15,7 +15,7 @@ class UserRegisterForm(UserCreationForm):
 
 class UserUpdateForm(forms.ModelForm):
     '''
-    Form to update user profile
+    Form to update user profile(username and email)
     '''
     email = forms.EmailField()
 
