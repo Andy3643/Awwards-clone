@@ -1,3 +1,4 @@
+from turtle import title
 from django.shortcuts import render,redirect
 from .forms import *
 from django.contrib import messages
@@ -51,7 +52,7 @@ def Upload_Project(request):
             project = form.save(commit=False)
             project.user = current_user
             project.save()
-            return redirect(Index_view)
+            return redirect('home')
     else:
         form = ProjectUploadForm()
     context = {
@@ -87,5 +88,15 @@ def profile(request):
     return render(request, 'users/profile.html', context)
     
     
-    
+#@login_required 
+def Rateproject(request,pk):
+    '''
+    Display a single projrct and  provide ratings for it.
+    '''
+    project = project.objects.get(id=pk)
+    title = 'Rating'
+    project_rating = Rating.objects.filter(project=project).order_by('pk')
+    current_user = request.user
+    current_user_id = request.user.id
+    project_rated = Rating.objects.filter(user=current_user_id)
     
