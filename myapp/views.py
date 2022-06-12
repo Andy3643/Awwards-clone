@@ -134,3 +134,20 @@ def Rateproject(request,pk):
     except ZeroDivisionError:
         usability_average = "0"
         usability_percent = 0
+        
+        
+    form = RatingUploadForm()
+
+    context = {
+        "project":project,
+        "form":form,
+        "project_rating":project_rating,
+        "design_average":design_average,
+        "content_average":content_average,
+        "usability_average":usability_average,
+        "usability_percent":usability_percent,
+        "content_percent":content_percent,
+        "design_percent":design_percent
+    }
+
+    return render(request,"project/projectrating.html",context)
