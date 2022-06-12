@@ -31,6 +31,7 @@
                               <h5 class="card-title">{{ project.title }}</h5>
                               <p class="card-text"><i>{{ project.description }}</i></p>
                               <a href="{{ project.link }}" class="btn btn-outline-success">Visit Site</a>
+                              <a href="{% url 'rate_project' project.id %}" class="btn btn-outline-success">Rate Site</a>
                             </div>
                           </div>
                     </div>

@@ -1,0 +1,37 @@
+<div class="col-md-8">
+    <h2 class="">Ratings</h2>
+    <hr>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">User</th>
+                <th scope="col">Design</th>
+                <th scope="col">Usability</th>
+                <th scope="col">Content</th>
+            </tr>
+        </thead>
+        <tbody class="t-data">
+            <tr>
+                <th scope="row">Average</th>
+                <td>All</td>
+                <td>{{ design_average }}</td>
+                <td>{{ usability_average }}</td>
+                <td>{{ content_average }}</td>
+            </tr>
+            {% if project_rating %}
+            {% for rating in project_rating %}
+            <tr class="rate{{rating.user.id}}">
+                <th scope="row">{{ forloop.counter }}</th>
+                <td class="t-user"><img src="{{ rating.user.profile.profile_pic.url }}" alt="profile picture"
+                        class="rounded-circle custom-display border border-danger">{{ rating.user.username }}
+                </td>
+                <td class="t-design">{{ rating.design }}</td>
+                <td class="t-usability">{{ rating.usability }}</td>
+                <td class="t-content">{{ rating.content }}</td>
+            </tr>
+            {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</div>

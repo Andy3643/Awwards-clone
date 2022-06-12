@@ -87,7 +87,20 @@ def profile(request):
 
     return render(request, 'users/profile.html', context)
     
-    
+
+
+#@login_required
+def User_Profile(request):
+    current_user = request.user
+    context = {
+        "current_user":current_user
+    }
+    return render(request,"users/profile_details.html",context)
+
+
+
+
+   
 #@login_required 
 def Rateproject(request,pk):
     '''

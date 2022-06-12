@@ -1,0 +1,84 @@
+<div class="container">
+    <div class="row">
+        <div class="col-4">
+            <p>Project Title : {{ project.title }} {{ design_mean }} </p>
+            <p> project details: {{ project.description }}</p>
+        </div>
+        <div class="col-1"></div>
+        <div class="col-7"></div>
+    </div>
+
+
+    <!--rate form-->
+    <div class="row">
+        <div class="col-md-4">
+            <h2 class="project-details-heading">Rate</h2>
+            <hr>
+            <form action="" method="POST" enctype="multipart/form-data" id="ratingform">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <input type="hidden" value="{{ project.id }}" id="project_id">
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Submit Rating</button>
+                </div>
+            </form>
+        </div> 
+        <!--rate card start-->
+        <div class="col-md-8">
+            <h2 class="">Ratings</h2>
+            <hr>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">User</th>
+                        <th scope="col">Design</th>
+                        <th scope="col">Usability</th>
+                        <th scope="col">Content</th>
+                    </tr>
+                </thead>
+                <tbody class="t-data">
+                    <tr>
+                        <th scope="row">Average</th>
+                        <td>All</td>
+                        <td>{{ design_average }}</td>
+                        <td>{{ usability_average }}</td>
+                        <td>{{ content_average }}</td>
+                    </tr>
+                    {% if project_rating %}
+                    {% for rating in project_rating %}
+                    <tr class="rate{{rating.user.id}}">
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td class="t-user"><img src="{{ rating.user.profile.profile_pic.url }}" alt="profile picture"
+                                class="rounded-circle custom-display border border-danger">{{ rating.user.username }}
+                        </td>
+                        <td class="t-design">{{ rating.design }}</td>
+                        <td class="t-usability">{{ rating.usability }}</td>
+                        <td class="t-content">{{ rating.content }}</td>
+                    </tr>
+                    {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+
+
+
+
+
+
+<!--rate card end-->
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+</div>
