@@ -106,7 +106,7 @@ def Rateproject(request,pk):
     '''
     Display a single projrct and  provide ratings for it.
     '''
-    project = project.objects.get(id=pk)
+    project = Project.objects.get(id=pk)
     title = 'Rating'
     project_rating = Rating.objects.filter(project=project).order_by('pk')
     current_user = request.user

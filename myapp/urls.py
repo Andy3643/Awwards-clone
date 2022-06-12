@@ -15,7 +15,7 @@ urlpatterns = [
         
         
         path('myprofile/',views.User_Profile,name="my_profile"),
-        
+        path(r'^rating/(?P<pk>\d+)$',views.Rateproject,name="rate_project"),
         
         
 
