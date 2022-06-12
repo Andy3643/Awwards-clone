@@ -100,3 +100,37 @@ def Rateproject(request,pk):
     current_user_id = request.user.id
     project_rated = Rating.objects.filter(user=current_user_id)
     
+    
+    
+    design_mean_rating = []
+    for d_rating in project_rating:
+        design_mean_rating.append(d_rating.design)
+    try:
+        design_average = sum(design_mean_rating)/len(design_mean_rating)
+        design_percent = design_average * 10
+    except ZeroDivisionError:
+        design_average = "0"
+        design_percent = 0
+      
+        
+    content_mean_rating = []
+    for c_rating in project_rating:
+        content_mean_rating.append(c_rating.content)
+    try:
+        content_average = sum(content_mean_rating)/len(content_mean_rating)
+        content_percent = content_average * 10
+    except ZeroDivisionError:
+        content_average = "0"
+        content_percent = 0
+        
+    
+    
+    usability_mean_rating = []
+    for u_rating in project_rating:
+        usability_mean_rating.append(u_rating.usability)
+    try:
+        usability_average = sum(usability_mean_rating)/len(usability_mean_rating)
+        usability_percent = usability_average *10
+    except ZeroDivisionError:
+        usability_average = "0"
+        usability_percent = 0
