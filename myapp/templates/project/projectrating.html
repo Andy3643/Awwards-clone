@@ -2,36 +2,58 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="container">
+{% include 'navbar2.html' %}
+<div class="container mt-5">
     <div class="row">
         <div class="col-4">
-            <p>Project Title : {{ project.title }} {{ design_mean }} </p>
-            <p> project details: {{ project.description }}</p>
+            <div class="mt-5">
+            <h3>Project Title</h3>
+            <p>{{ project.title }} {{ design_mean }} </p>
+            </div>
+            <div class="mt-5">
+            <h3>project details</h3>
+            <p>{{ project.description }}</p>
+            </div>
         </div>
         <div class="col-1"></div>
-        <div class="col-7"></div>
+        <div class="col-7">
+            <h3>Screenshot of the site</h3>
+            <img src="{{ project.image.url }}" alt="Screenshot" width="100%">
+        </div>
     </div>
 
 
     <!--rate form-->
-    <div class="row">
-        <div class="col-md-4">
-            <h2 class="project-details-heading">Rate</h2>
+    <div class="row mt-5">
+        <div class="col-md-4 mt-5">
+            <h2 class="project-details-heading">Rate this page here</h2>
             <hr>
-            <form action="" method="POST" enctype="multipart/form-data" id="ratingform">
-                {% csrf_token %}
-                {{ form|crispy }}
-                <input type="hidden" value="{{ project.id }}" id="project_id">
-                <div class="form-group">
-                    <button class="btn btn-outline-info" type="submit">Submit Rating</button>
+            <div class="card text-center">
+                <div class="card-header">
+                  Rate
                 </div>
-            </form>
+                <div class="card-body">
+                    <form action="" method="POST" enctype="multipart/form-data" id="ratingform">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <input type="hidden" value="{{ project.id }}" id="project_id">
+                        <div class="form-group mt-3">
+                            <button class="btn btn-success" type="submit">Submit Rating</button>
+                        </div>
+                    </form>
+               </div>
+                <div class="card-footer text-muted">
+                  
+                </div>
+              </div>
+            
         </div> 
+        <div class="col-1"></div>
         <!--rate card start-->
-        <div class="col-md-8">
-            <h2 class="">Ratings</h2>
+        <div class="col-md-7 mt-5">
+            <h2 class=""> Total Ratings</h2>
             <hr>
-            <table class="table">
+            <table class="table table-striped">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">#</th>
@@ -42,19 +64,19 @@
                     </tr>
                 </thead>
                 <tbody class="t-data">
-                    <tr>
-                        <th scope="row">Average</th>
-                        <td>All</td>
-                        <td>{{ design_average }}</td>
-                        <td>{{ usability_average }}</td>
-                        <td>{{ content_average }}</td>
+                    <tr class="table-primary">
+                        <th scope="row" ></th>
+                        <td><p><b>Total score</b></p></td>
+                        <td><p><b>{{ design_average }}</b></p></td>
+                        <td><p><b>{{ usability_average }}</b></p></td>
+                        <td><p><b>{{ content_average }}</b></p></td>
                     </tr>
                     {% if project_rating %}
                     {% for rating in project_rating %}
                     <tr class="rate{{rating.user.id}}">
                         <th scope="row">{{ forloop.counter }}</th>
                         <td class="t-user"><img src="{{ rating.user.profile.profile_pic.url }}" alt="profile picture"
-                                class="rounded-circle custom-display border border-danger">{{ rating.user.username }}
+                                class="rounded-circle custom-display border border-primary" width="10%">&nbsp; &nbsp;  {{ rating.user.username }}
                         </td>
                         <td class="t-design">{{ rating.design }}</td>
                         <td class="t-usability">{{ rating.usability }}</td>
