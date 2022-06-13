@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from cloudinary.models import CloudinaryField
-from PIL import Image
+
 
 # Create your models here.
 class Profile(models.Model):
@@ -48,7 +48,8 @@ class Project(models.Model):
     title = models.CharField(max_length=40)
     description = models.TextField()
     link = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='site_photos/')
+    image = CloudinaryField('image')
+    #image = models.ImageField(upload_to='site_photos/')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):

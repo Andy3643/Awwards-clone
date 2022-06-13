@@ -10,9 +10,11 @@
     </div>
 </div>
 <div>
-    <h3 class="text-center mt-5">PROJECTS</h3>
+    <div class="">
+    <h3 class="text-center mt-5" style="font-family: 'Archivo Black', sans-serif;
+        font-size: 40PX;">PROJECTS</h3>
+    </div>
     <div>
-        <p>cards here</p>
         <div class="container">
             <div class="row">
             
@@ -23,8 +25,7 @@
                     
                         <div class="card" style="width: 18rem;">
                             <div class="card-header">
-                            <img src="{{ project.user.profile.profile_pic.url }}" alt="profile picture" class="rounded-circle custom-display border border-danger">
-                    <p class="ml-2">Uploaded by: {{ project.user.username }}</p>
+                            <img src="{{ project.user.profile.profile_pic.url }}" alt="profile picture" class="rounded-circle custom-display border border-primary" width="16%">&nbsp; &nbsp; <b>{{ project.user.username }}</b>
                               </div>
                             <img src="{{ project.image.url }}" class="card-img-top" alt="screenshot">
                             <div class="card-body">
