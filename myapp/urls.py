@@ -7,6 +7,7 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'projects', views.ProjectList, basename='Projects')
+router.register(r'profile', views.ProfileList, basename='Projects')
 
 
 urlpatterns = [
@@ -19,8 +20,10 @@ urlpatterns = [
         
         path(r'^rating/(?P<pk>\d+)$',views.Rateproject,name="rate_project"),
         
-        path
-        
+        path('project-api/', include(router.urls)),
+        path('profile-api/', include(router.urls)),
+        path('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+
 
 ] 
 

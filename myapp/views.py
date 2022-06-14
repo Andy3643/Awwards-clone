@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.db.models import Avg
 from rest_framework import viewsets
-from .serializers import ProjectSerializer
+from .serializers import *
 from .models import Project
 # Create your views here.
 
@@ -177,3 +177,7 @@ def Rateproject(request,pk):
 class ProjectList(viewsets.ModelViewSet):
         queryset = Project.objects.all().order_by('title')
         serializer_class =ProjectSerializer
+        
+class ProfileList(viewsets.ModelViewSet):
+        queryset = Profile.objects.all()#.order_by('bio')
+        serializer_class =ProfileSerializer
