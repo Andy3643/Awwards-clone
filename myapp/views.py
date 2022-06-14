@@ -117,8 +117,7 @@ def Rateproject(request,pk):
     except ZeroDivisionError:
         design_average = "0"
         design_percent = 0
-      
-        
+         
     content_mean_rating = []
     for c_rating in project_rating:
         content_mean_rating.append(c_rating.content)
@@ -129,8 +128,6 @@ def Rateproject(request,pk):
         content_average = "0"
         content_percent = 0
         
-    
-    
     usability_mean_rating = []
     for u_rating in project_rating:
         usability_mean_rating.append(u_rating.usability)
@@ -145,15 +142,27 @@ def Rateproject(request,pk):
     form = RatingUploadForm()
 
     context = {
-        "project":project,
-        "form":form,
         "project_rating":project_rating,
         "design_average":design_average,
         "content_average":content_average,
         "usability_average":usability_average,
         "usability_percent":usability_percent,
         "content_percent":content_percent,
-        "design_percent":design_percent
+        "design_percent":design_percent,
+        "project":project,
+        "form":form
     }
 
     return render(request,"project/projectrating.html",context)
+
+#write ajax funtion to post scores 
+
+@login_required
+def AjaxRating(request,pk):
+    '''
+    upoloading user data to project
+    '''
+    project = Project.objects.get(id=pk)
+    project_rated = Rating.objects.filter(user=current_user_id)
+    current_user = request.user.username
+    current_user_id = request.user.id
