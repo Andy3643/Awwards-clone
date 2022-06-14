@@ -2,7 +2,7 @@ from turtle import title
 from django.shortcuts import render,redirect
 from .forms import *
 from django.contrib import messages
-#from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -40,7 +40,7 @@ def Index_view(request):
     return render(request,"index.html",context)   
      
 
-#@login_required
+@login_required
 def Upload_Project(request):
     '''
     function to upload project for display
@@ -59,12 +59,18 @@ def Upload_Project(request):
         "form":form
     }
 
-    return render(request,"project/project_upload.html",context)  
-     
-    
-    
-#@login_required
+    return render(request,"project/project.html",context)  
+
+
+@login_required    
 def profile(request):
+    user=request.user
+    my_profile=Profile.objects.get(user=user)
+    return render(request,"users/profile.html",{'my_profile':my_profile,"user":user})
+       
+    
+@login_required
+def update_profile(request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST,
@@ -88,20 +94,7 @@ def profile(request):
     return render(request, 'users/profile.html', context)
     
 
-
-#@login_required
-def User_Profile(request):
-    current_user = request.user
-    context = {
-        "current_user":current_user
-    }
-    return render(request,"users/profile_details.html",context)
-
-
-
-
-   
-#@login_required 
+@login_required 
 def Rateproject(request,pk):
     '''
     Display a single projrct and  provide ratings for it.
@@ -147,8 +140,8 @@ def Rateproject(request,pk):
     except ZeroDivisionError:
         usability_average = "0"
         usability_percent = 0
-        
-        
+      
+           
     form = RatingUploadForm()
 
     context = {

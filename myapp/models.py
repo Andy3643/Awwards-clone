@@ -11,6 +11,7 @@ class Profile(models.Model):
     Model for user profile
     '''
     user = models.OneToOneField(User,on_delete=models.CASCADE)
+    # profile_pic = models.ImageField(upload_to='site_photos/')
     profile_pic = CloudinaryField('image')
     bio = models.TextField(blank=True)
 
@@ -25,20 +26,7 @@ class Profile(models.Model):
     @receiver(post_save,sender=User) 
     def save_user_profile(sender,instance,**kwargs):
         instance.profile.save()
-    # def __str__(self):
-    #     return f'{self.user.username} Profile'
     
-    # def save(self, *args, **kwargs):
-    #     super().save(*args, **kwargs)
-    
-
-    #     img = Image.open(self.image.path) # Open image
-        
-    #     # resize image
-    #     if img.height > 300 or img.width > 300:
-    #         output_size = (300, 300)
-    #         img.thumbnail(output_size) # Resize image
-    #         img.save(self.image.path) #
     
     
 class Project(models.Model):
@@ -54,6 +42,24 @@ class Project(models.Model):
 
     def __str__(self):
         return f'{self.user.username} {self.title} Project'
+
+    # def save_post(self):
+    #     self.save()
+
+    # def delete_post(self):
+    #     self.delete()
+
+    # @classmethod
+    # def all_projects(cls):
+    #     return cls.objects.all()
+
+
+    # @classmethod
+    # def search_projects(cls,title):
+    #     return cls.objects.filter(title__icontains=title).all()
+
+
+
 
 class Rating(models.Model):
     '''
