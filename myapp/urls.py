@@ -1,9 +1,12 @@
 from django.contrib.auth import views as auth_views
-from django.urls import path,path,include
+from django.urls import path,include
 from . import views
 from django.conf.urls.static import static
 from django.conf import settings
+from rest_framework import routers
 
+router = routers.DefaultRouter()
+router.register(r'projects', views.ProjectList, basename='Projects')
 
 
 urlpatterns = [
@@ -16,6 +19,7 @@ urlpatterns = [
         
         path(r'^rating/(?P<pk>\d+)$',views.Rateproject,name="rate_project"),
         
+        path
         
 
 ] 
