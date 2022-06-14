@@ -3,7 +3,8 @@ from django.shortcuts import render,redirect
 from .forms import *
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
+from django.http import JsonResponse
+from django.db.models import Avg
 # Create your views here.
 
 
@@ -94,6 +95,7 @@ def update_profile(request):
     return render(request, 'users/profile.html', context)
     
 
+
 @login_required 
 def Rateproject(request,pk):
     '''
@@ -107,39 +109,47 @@ def Rateproject(request,pk):
     project_rated = Rating.objects.filter(user=current_user_id)
     
     
-    
-    design_mean_rating = []
-    for d_rating in project_rating:
-        design_mean_rating.append(d_rating.design)
-    try:
-        design_average = sum(design_mean_rating)/len(design_mean_rating)
-        design_percent = design_average * 10
-    except ZeroDivisionError:
-        design_average = "0"
-        design_percent = 0
-         
-    content_mean_rating = []
-    for c_rating in project_rating:
-        content_mean_rating.append(c_rating.content)
-    try:
-        content_average = sum(content_mean_rating)/len(content_mean_rating)
-        content_percent = content_average * 10
-    except ZeroDivisionError:
-        content_average = "0"
-        content_percent = 0
-        
-    usability_mean_rating = []
-    for u_rating in project_rating:
-        usability_mean_rating.append(u_rating.usability)
-    try:
-        usability_average = sum(usability_mean_rating)/len(usability_mean_rating)
-        usability_percent = usability_average *10
-    except ZeroDivisionError:
-        usability_average = "0"
-        usability_percent = 0
-      
-           
-    form = RatingUploadForm()
+    if request.method == 'POST':
+        form = RatingUploadForm(request.POST)
+        if form.is_valid():
+                rate = form.save(commit=False)
+                rate.user = request.user
+                rate.project = project
+                rate.save()
+                post_ratings = Rating.objects.filter(project=project)
+            
+                design_mean_rating = []
+                for d_rating in project_rating:
+                    design_mean_rating.append(d_rating.design)
+                try:
+                    design_average = sum(design_mean_rating)/len(design_mean_rating)
+                    design_percent = design_average * 10
+                except ZeroDivisionError:
+                    design_average = "0"
+                    design_percent = 0
+                
+                content_mean_rating = []
+                for c_rating in project_rating:
+                    content_mean_rating.append(c_rating.content)
+                try:
+                    content_average = sum(content_mean_rating)/len(content_mean_rating)
+                    content_percent = content_average * 10
+                except ZeroDivisionError:
+                    content_average = "0"
+                    content_percent = 0
+                
+                usability_mean_rating = []
+                for u_rating in project_rating:
+                    usability_mean_rating.append(u_rating.usability)
+                try:
+                    usability_average = sum(usability_mean_rating)/len(usability_mean_rating)
+                    usability_percent = usability_average *10
+                except ZeroDivisionError:
+                    usability_average = "0"
+                    usability_percent = 0
+            
+    else:        
+        form = RatingUploadForm()
 
     context = {
         "project_rating":project_rating,
@@ -155,14 +165,3 @@ def Rateproject(request,pk):
 
     return render(request,"project/projectrating.html",context)
 
-#write ajax funtion to post scores 
-
-@login_required
-def AjaxRating(request,pk):
-    '''
-    upoloading user data to project
-    '''
-    project = Project.objects.get(id=pk)
-    project_rated = Rating.objects.filter(user=current_user_id)
-    current_user = request.user.username
-    current_user_id = request.user.id
