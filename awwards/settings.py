@@ -178,9 +178,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 cloudinary.config( 
-  cloud_name =config('cloud_name'),
-  api_key =config('api_key'), 
-  api_secret =config('api_secret'),  
+    cloud_name="andyphotos",
+    api_key="978166777643715",
+    api_secret="d5wDexGnvqxseJGgsNszjZ8bF5U"
+                  
+#   cloud_name =config('cloud_name'),
+#   api_key =config('api_key'), 
+#   api_secret =config('api_secret'),  
 )
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGIN_REDIRECT_URL = 'home'
